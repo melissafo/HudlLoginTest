@@ -1,0 +1,53 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class LoginPage {
+
+    private final WebDriver driver;
+    private final By emailField = By.id("email");
+    private final By passwordField = By.id("password");
+    private final By logInButton = By.id("logIn");
+    private final By error = By.cssSelector("p[data-qa-id='error-display']");
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void setEmail(String email) {
+        driver.findElement(emailField).sendKeys(email);
+    }
+
+    public void setPassword(String password) {
+        driver.findElement(passwordField).sendKeys(password);
+    }
+
+    public HomePage clickLogInButton() {
+        driver.findElement(logInButton).click();
+        return new HomePage(driver);
+    }
+
+    private void waitForVisibility(WebElement element) throws Error {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public WebElement error() {
+        return driver.findElement(error);
+    }
+
+    public void waitForError() {
+        waitForVisibility(error());
+    }
+
+    public String getErrorText() {
+        return driver.findElement(error).getText();
+    }
+
+}
