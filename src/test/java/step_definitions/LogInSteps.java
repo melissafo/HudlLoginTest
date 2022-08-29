@@ -19,7 +19,7 @@ public class LogInSteps {
 
     String email = ReadConfig.getProperty("user.email");
     String password = ReadConfig.getProperty("user.password");
-    String homePageUrl = "https://www.hudl.com/home2";
+    String homePageUrl = "https://www.hudl.com/home";
     String errorMessage = "We didn't recognize that email and/or password.Need help?";
     String invalidEmail = "test@4069343.com";
     String invalidPassword = "V6$ho*Bg847!";
