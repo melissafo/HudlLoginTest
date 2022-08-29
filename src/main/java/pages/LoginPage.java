@@ -20,6 +20,11 @@ public class LoginPage {
         this.driver = driver;
     }
 
+    private void waitForVisibility(WebElement element) throws Error {
+        new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.visibilityOf(element));
+    }
+
     public void setEmail(String email) {
         driver.findElement(emailField).sendKeys(email);
     }
@@ -28,14 +33,15 @@ public class LoginPage {
         driver.findElement(passwordField).sendKeys(password);
     }
 
-    public HomePage clickLogInButton() {
+    public void clickLogInButton() {
         driver.findElement(logInButton).click();
-        return new HomePage(driver);
+        new HomePage(driver);
     }
 
-    private void waitForVisibility(WebElement element) throws Error {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOf(element));
+    public void logIn(String email, String password) {
+        setEmail(email);
+        setPassword(password);
+        clickLogInButton();
     }
 
     public WebElement error() {
@@ -47,7 +53,7 @@ public class LoginPage {
     }
 
     public String getErrorText() {
+        waitForError();
         return driver.findElement(error).getText();
     }
-
 }
