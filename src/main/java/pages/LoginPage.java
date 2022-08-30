@@ -35,7 +35,6 @@ public class LoginPage {
 
     public void clickLogInButton() {
         driver.findElement(logInButton).click();
-        new HomePage(driver);
     }
 
     public void logIn(String email, String password) {
